@@ -3,5 +3,4 @@ pixiv_auth.py
 chromedriver.exe
 chromedriver_win32]
 main.py
-daily_SNS_data.xlsx
-~$daily_SNS_data.xlsx
+data_file

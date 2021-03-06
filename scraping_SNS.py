@@ -29,30 +29,6 @@ class scraping_SNS:
         
         return play_text
     
-    #YouTubeからフォロワー取得
-    def youtube2(url):
-    
-    response = requests.get(url)
-    py_response = []
-    py_response.append(pq(response.text))
-    
-    """
-    フォロワー数,再生回数の取得
-    """
-    follower_text = ""
-    play_text = ""
-    
-    for py_response in py_response:
-        response_list = re.split(',',str(py_response))
-        follower_text = [s for s in response_list if "subscriberCountText" in s]
-        
-        play_text = [s for s in response_list if "回視聴" in s]
-
-        follower_text = re.sub("\\D", "", str(follower_text))
-        play_text = re.sub("\\D", "", str(play_text))
-    
-    return follower_text
-
     #Instagramのフォロワー取得
     def Instagram(self, url):
 

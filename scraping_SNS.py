@@ -6,7 +6,7 @@ import re
 
 class scraping_SNS:
     #YouTubeから再生回数取得
-    def youtube(self, url):
+    def youtube(self, target, url):
         
         response = requests.get(url)
         py_response = []
@@ -20,14 +20,19 @@ class scraping_SNS:
         
         for py_response in py_response:
             response_list = re.split('"',str(py_response))
-            follower_text = [s for s in response_list if "subscriberCountText" in s]
+            response_list2 = re.split(',',str(py_response))
+            
+            follower_text = [s for s in response_list2 if "subscriberCountText" in s]
             
             play_text = [s for s in response_list if "回視聴" in s]
 
             follower_text = re.sub("\\D", "", str(follower_text))
             play_text = re.sub("\\D", "", str(play_text))
         
-        return play_text
+        if(target == "p"):
+            return play_text
+        if(target == "f"):
+            return follower_text
     
     #Instagramのフォロワー取得
     def Instagram(self, url):
@@ -50,7 +55,7 @@ class scraping_SNS:
         return follower_text
 
     #deviantartのフォロワー取得
-    def deviant(self, url):
+    def deviant(self, target, url):
         
         response = requests.get(url)
         py_response = []
@@ -72,8 +77,11 @@ class scraping_SNS:
             
             follower_text = re.sub("\\D", "", str(follower_text[-3]))
             view_text = re.sub("\\D", "", str(view_text[-1]))
-            
-        return follower_text,view_text
+        
+        if target == "f":
+            return follower_text
+        if target == "v":
+            return view_text
 
     #Artstationのフォロワー取得
     def artstation(self, url):
